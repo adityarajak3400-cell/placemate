@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Environment — real secrets never get committed (.env.example files stay tracked)
+.env
+.env.local
+.env.*.local
+
+# Builds
+dist/
+build/
+.next/
+out/
+
+# Prisma 7 generated client (regenerate with `npx prisma generate`)
+server/src/generated/
+
+# Tests & tooling
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Deploy
+.vercel

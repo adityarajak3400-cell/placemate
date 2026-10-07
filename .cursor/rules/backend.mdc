@@ -1,0 +1,39 @@
+---
+description: Backend rules for the Express API (server/**)
+globs: server/**
+alwaysApply: false
+---
+
+# Backend Rules (server/)
+
+Stack: Express + TypeScript + Prisma + zod + JWT. Layer rule is absolute:
+
+```text
+routes/ → controllers/ → services/ → Prisma
+```
+
+## Layers
+
+- `routes/` — URL + middleware wiring only. No logic.
+- `controllers/` — parse request, call one service, send response. Never import Prisma.
+- `services/` — business logic + ALL Prisma access. Ownership checks live here.
+- `middleware/` — `auth`, `requireRole`, `validate(schema)`, central error handler.
+- `lib/` — prisma client singleton, jwt helpers, cloudinary, `matcher.ts`, `skills.ts` (pure).
+
+## API contract
+
+- Validate every mutating request with zod middleware before the controller.
+- Responses: `{ data: ... }` or `{ error: { message, details? } }`; correct HTTP codes (401 unauthenticated, 403 forbidden, 404 not-found, 409 conflict).
+- Never return `passwordHash` or internal errors. Production errors never include stack traces.
+- Endpoint list is fixed in `docs/ARCHITECTURE.md` §6 — extend the doc first if a new endpoint is needed.
+
+## Security
+
+- Re-check auth AND ownership server-side on every protected handler (see `docs/SECURITY.md` §2 matrix).
+- Uploads: PDF only, ≤ 5 MB, memory storage, server-generated Cloudinary public IDs.
+- No raw SQL (`$queryRaw`) without an ADR.
+
+## Quality
+
+- Pure functions (matcher, keyword extraction, CSV escaping) in `lib/` with unit tests.
+- Every new endpoint gets an integration test: happy path + 401 + 403 + validation failure.

@@ -1,0 +1,28 @@
+---
+description: Frontend rules for the Next.js client (client/**)
+globs: client/**
+alwaysApply: false
+---
+
+# Frontend Rules (client/)
+
+Stack: Next.js App Router + TypeScript + Tailwind + lucide-react + React Hook Form/zod.
+
+## Structure
+
+- Routes in `src/app/` · reusable UI in `src/components/` · feature components/hooks in `src/features/<feature>/` · helpers in `src/lib/` · types in `src/types/`.
+- **One API client**: `src/lib/api.ts`. Never call `fetch` directly elsewhere. It attaches the JWT and unwraps `{ data }` / `{ error }`.
+- API response types mirror `docs/ARCHITECTURE.md` §6 in `src/types/api.ts`.
+
+## UI non-negotiables
+
+- Follow `docs/DESIGN.md` exactly (colors, 12px radius, button variants, badges, score bars).
+- Every screen: responsive at 375/768/1440 + loading state + empty state + error state.
+- Forms: label above input, inline errors, disable submit while pending, focus first error.
+- status badges and match-score colors come from DESIGN.md tables — never invent colors.
+
+## Security & auth
+
+- Token handling only in the auth context/lib. 401 from any call → clear token, redirect to `/login`.
+- Client route guards are UX only — never assume the API trusts them.
+- No `dangerouslySetInnerHTML`. Render job descriptions as plain text with line breaks.

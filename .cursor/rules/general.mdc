@@ -1,0 +1,31 @@
+---
+description: PlaceMate general development rules — always active
+alwaysApply: true
+---
+
+# PlaceMate — General Rules
+
+You are working on **PlaceMate**, a campus placement portal (Next.js `client/` + Express `server/`, PostgreSQL/Prisma, JWT auth).
+
+## Read before coding
+
+- `docs/MEMORY.md` — current project state (read FIRST)
+- `docs/PRD.md` + `docs/ARCHITECTURE.md` — what we build and how
+- `docs/DECISIONS.md` — settled decisions; never silently change an ADR
+- `TASKS.md` — the task you're working on; do one task at a time
+- `RULES.md` — full rulebook (this file mirrors it)
+
+## Hard rules
+
+- TypeScript strict; no `any` without written justification.
+- Do not modify unrelated files. Do not create duplicate logic — search first.
+- No new dependencies without asking.
+- Present a plan before any change larger than ~50 lines.
+- Definition of done: lint + typecheck + build pass; docs updated (`MEMORY.md`, `TASKS.md` checkbox).
+- Report at the end: files changed, what was implemented, verification, remaining issues.
+
+## Never
+
+- Commit `.env` files, secrets, or keys.
+- Trust client-side checks for security — the API re-checks everything.
+- Change database schema without updating `docs/ARCHITECTURE.md` §5 and a migration.

@@ -1,0 +1,14 @@
+// PlaceMate data model — the single source of truth (docs/ARCHITECTURE.md §5).
+// Models are added task by task; the first real schema lands in TASK-011.
+// Prisma 7: connection URL lives in prisma.config.ts, not here.
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "ts" // required so tsx can resolve generated imports
+}
+
+datasource db {
+  provider = "postgresql"
+}

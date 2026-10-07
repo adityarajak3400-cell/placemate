@@ -1,0 +1,26 @@
+---
+description: Testing rules — applies to test files in client/ and server/
+globs: "{client/e2e/**, server/tests/**}"
+alwaysApply: false
+---
+
+# Testing Rules
+
+The definition of "working" is `docs/TEST_PLAN.md` — its checklists are the acceptance criteria for every task.
+
+## Server tests (Vitest + supertest — `server/tests/`)
+
+- `unit/` — pure functions only (matcher, keyword extraction, CSV escaping). No DB, no mocks needed for these.
+- `integration/` — real HTTP against the app + test database: happy path, auth failure (401), role failure (403), validation failure (400), conflict (409).
+- Fixtures for the matcher must include the exact cases from TEST_PLAN §4 (100 / 0 / 50.0 / determinism).
+
+## Client E2E (Playwright — `client/e2e/`)
+
+- Scenarios come from TEST_PLAN §10 (E2E-1 … E2E-6). Each test starts from a clean state.
+- Full user flows only — do not re-test what unit tests cover.
+
+## Workflow
+
+- After implementing: lint → typecheck → run the tests for the touched area. Fix failures before reporting done.
+- Never delete or skip a failing test to "make it pass" — report it instead.
+- When adding a feature, add its checks to TEST_PLAN.md if missing, then implement to that standard.
