@@ -12,7 +12,7 @@
 
 ## Phase 1 — Foundation
 
-- [ ] **TASK-001** Git & GitHub — install Git (manual, blocked 🚫 until installed), `git init` in `project/`, verify `.gitignore` covers both apps, first commit (docs + scaffolds), create GitHub repo `placemate`, push
+- [x] **TASK-001** Git & GitHub — ✅ Git 2.55.0 (winget); ✅ first commit `c86c097`; ✅ pushed 2026-10-07 → public repo [adityarajak3400-cell/placemate](https://github.com/adityarajak3400-cell/placemate); `main` tracks `origin/main`
 - [ ] **TASK-002** Supabase project — create project, copy connection string to `server/.env` (`DATABASE_URL`), create `client/.env.local` with `NEXT_PUBLIC_API_URL=http://localhost:5000`
 - [ ] **TASK-003** Prisma wiring — scaffold done in Phase 0 (`prisma.config.ts`, `@prisma/adapter-pg`, client generated, `/api/health` verified 200 via tsx smoke test). Remaining: fill `DATABASE_URL` in `server/.env` (TASK-002), then run the first migration (`prisma migrate dev --name init-users`) in TASK-011
 

@@ -8,6 +8,8 @@
 
 **Phase 0 — Setup complete.** Documentation set finalized; `client/` (Next.js) and `server/` (Express) scaffolds created and verified. The server boots with Prisma 7 + `@prisma/adapter-pg`; `GET /api/health` returns HTTP 200 `{ data: { status: "ok", service: "placemate-api" } }` (verified via a tsx smoke test; the temp file was deleted after). Client deps installed (lucide-react, react-hook-form, @hookform/resolvers, zod). Root files written (`README.md`, `.env.example`, `.gitignore`). No business logic implemented yet.
 
+**Phase 1 in progress** — Git 2.55.0 installed (winget); repo on `main`, first commit `c86c097` (43 files) **pushed to GitHub** → `origin` = https://github.com/adityarajak3400-cell/placemate (public). TASK-001 complete. Both dev servers verified live (API :5000, web :3000), running detached; previews in the Qoder panel.
+
 ## Completed
 
 - [x] Product definition, PRD, ARCHITECTURE, DESIGN, TEST_PLAN, SECURITY, DECISIONS (all docs in `docs/`)
@@ -19,23 +21,22 @@
 
 ## Current Task
 
-**TASK-001 — Git & GitHub setup** (see `TASKS.md` Phase 1) — blocked on installing Git on the machine.
+**TASK-001 — Git & GitHub: DONE** (pushed 2026-10-07). **Next: TASK-002 Supabase** — create the project, provide the connection string; then TASK-003/011 (verify DB + first migration).
 
 ## Known Issues / Blockers
 
-- **Git is not installed** on this machine (verified: not in `C:\Program Files\Git` or user-local programs). Must be installed before TASK-001. Everything else is unaffected.
+- GitHub remote live: `origin` → https://github.com/adityarajak3400-cell/placemate (public). The account username is **`adityarajak3400-cell`** — do NOT confuse with the email handle `adityarajak3400` (that username does not exist).
 - Node.js is installed at `C:\Program Files\nodejs` but was not on this session's PATH — verify `node --version` works in your own terminal.
 - **Prisma 7 breaking changes apply**: connection URL must live in `prisma.config.ts` (schema `url` is rejected); the runtime requires a driver adapter (`new PrismaClient({ adapter })`); the server is ESM and source imports use `.ts` extensions. Regenerate the client (`npx prisma generate`) after any schema edit — `src/generated/` is git-ignored.
-- No Supabase project created yet (needed for TASK-002/003) — `DATABASE_URL` is still empty.
+- No Supabase project created yet (needed for TASK-002/003) — `server/.env` still holds the localhost placeholder for `DATABASE_URL`.
 - No Cloudinary account created yet (needed for TASK-025).
-- No `.env` values set — server falls back to defaults where possible.
+- `server/.env` dev values: real 48-char `JWT_SECRET` generated (2026-10-07); `DATABASE_URL` pending Supabase.
 
 ## Next Step (in order)
 
-1. Install Git (git-scm.com/download/win), verify `git --version` in a new terminal
-2. TASK-001: `git init` in `project/`, first commit, push to GitHub
-3. TASK-002: create Supabase project → copy connection string to `server/.env` (`DATABASE_URL`)
-4. TASK-003: confirm `npm run dev` + `GET /api/health` with a real DB configured, then Phase 2 (TASK-011 first migration)
+1. TASK-002: create Supabase project → copy connection string to `server/.env` (`DATABASE_URL`)
+2. TASK-003/Phase 2: verify the DB connection, then TASK-011 first migration (`prisma migrate dev --name init-users`)
+3. (Optional, user's choice) Make the git identity permanent: `git config --global user.name "aditya"` + `git config --global user.email "adityarajak3400@gmail.com"`
 
 ## Session Log
 
@@ -43,3 +44,5 @@
 |---|---|
 | 2026-10-07 | Workspace created. Vibe-coding reference library set up in `../vibe-code/`. PlaceMate docs written. Scaffolds generated. Git install identified as next manual step. |
 | 2026-10-07 | Phase 0 closed out: client extras installed (lucide/RHF/zod); server adapted to Prisma 7 (prisma.config.ts + PrismaPg adapter + generated client) and verified end-to-end (tsc clean, smoke test HTTP 200); root README/.env.example/.gitignore written; docs synced to scaffold reality; temp files cleaned. |
+| 2026-10-07 | Phase 1 started: Git 2.55.0 installed via winget; `project/` git-initialized on `main`, first commit `c86c097` (43 files); real `JWT_SECRET` written to `server/.env`; both dev servers verified live (API :5000, web :3000) running detached. GitHub push + Supabase signup remain (need user's accounts). |
+| 2026-10-07 | **TASK-001 COMPLETE** — actual GitHub account is `adityarajak3400-cell` (the email handle `adityarajak3400` does not exist as a user); remote `origin` set, first push succeeded — `main` tracking `origin/main` at github.com/adityarajak3400-cell/placemate (public, 43 files). |
